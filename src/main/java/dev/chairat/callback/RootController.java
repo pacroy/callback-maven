@@ -18,10 +18,15 @@ public class RootController {
 
     @GetMapping
     public String redirect(HttpServletResponse httpServletResponse) {
+        String tenantId = UriUtils.encode(System.getenv("TENANT_ID"), "UTF-8");
         String clientId = UriUtils.encode(System.getenv("CLIENT_ID"), "UTF-8");
         String resourceId = UriUtils.encode(System.getenv("RESOURCE_ID"), "UTF-8");
         String redirectUri = UriUtils.encode(System.getenv("REDIRECT_URI"),"UTF-8" );
 
+        if (StringUtils.isEmpty(tenantId)) {
+            httpServletResponse.setStatus(HttpStatus.OK.value());
+            return "Missing environment variable: TENANT_ID";
+        }
         if (StringUtils.isEmpty(clientId)) {
             httpServletResponse.setStatus(HttpStatus.OK.value());
             return "Missing environment variable: CLIENT_ID";
@@ -36,7 +41,7 @@ public class RootController {
         }
 
         httpServletResponse.setHeader("Location",
-                "https://login.microsoftonline.com/EMCloudAD.onmicrosoft.com/oauth2/authorize?" +
+                "https://login.microsoftonline.com/" + tenantId + "/oauth2/authorize?" +
                 "client_id=" + clientId +
                 "&response_type=token" +
                 "&resource=" + resourceId +
