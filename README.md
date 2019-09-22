@@ -7,22 +7,22 @@ This app lets you catch the OAuth authorization code or access token returned fr
 Build with Maven
 
 ```
-$ ./mvnw clean install
+./mvnw clean install
 ```
 
 ## Execution
 
 Set the following environment variables:
 
-```
-$ TENANT_ID=<AzureAD Tenant ID>
-$ CLIENT_ID=<AzureAD Client App ID>
-$ RESOURCE_ID=<AzureAD Server App ID>
-$ REDIRECT_URI=http://localhost:8080/callback
-```
+| Name | Desscription |
+| --- | --- |
+| TENANT_ID | AzureAD Tenant ID | 
+| CLIENT_ID | AzureAD App ID for the client |
+| RESOURCE_ID | AzureAD App ID for the server |
+| REDIRECT_URI | e.g. `http://localhost:8080/callback` |
 
 Run
 
 ```
-$ ./mvnw spring-boot:run
+./mvnw spring-boot:run
 ```
